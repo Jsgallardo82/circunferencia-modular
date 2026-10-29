@@ -1,0 +1,160 @@
+:root {
+  --bg: #0b1020;
+  --panel: #111827;
+  --border: #1f2937;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --accent-ink: #04121c;
+  --control: #1e293b;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 330px 1fr;
+  height: 100vh;
+}
+
+/* ---------- Panel de controles ---------- */
+.panel {
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 18px 18px 24px;
+  overflow-y: auto;
+}
+
+h1 { font-size: 18px; margin: 0; }
+h2 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+.formula {
+  margin: 4px 0 0;
+  color: var(--accent);
+  font-family: ui-monospace, Consolas, monospace;
+}
+
+section {
+  border-top: 1px solid var(--border);
+  padding: 14px 0;
+  margin-top: 14px;
+}
+header + section { margin-top: 16px; }
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.row > span { color: var(--text); }
+.inline { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex: 1; min-width: 0; color: var(--muted); }
+.check { display: flex; align-items: center; gap: 8px; margin: 6px 0; cursor: pointer; }
+
+input[type="range"] { width: 100%; accent-color: var(--accent); }
+.row input[type="range"] { width: 150px; }
+.inline input[type="range"] { width: auto; flex: 1; min-width: 60px; }
+
+input[type="number"], select {
+  background: var(--control);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font: inherit;
+}
+input[type="number"] {
+  width: 110px;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 15px;
+  text-align: right;
+}
+input[type="color"] {
+  width: 44px; height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--control);
+  padding: 2px;
+}
+
+button {
+  background: var(--control);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 9px;
+  font: inherit;
+  cursor: pointer;
+}
+button:hover { border-color: var(--accent); }
+button.primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+button.wide { width: 100%; margin-top: 8px; padding: 9px; }
+button.link { background: none; border: none; color: var(--muted); padding: 0; text-decoration: underline; }
+
+.steps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; margin-top: 8px; }
+.steps button { padding: 5px 0; font-size: 12px; }
+
+.presets { display: flex; flex-wrap: wrap; gap: 6px; }
+.presets button.active { border-color: var(--accent); color: var(--accent); }
+
+footer { border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px; }
+.hint { color: var(--muted); font-size: 12px; }
+kbd {
+  background: var(--control);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0 4px;
+  font-size: 11px;
+}
+
+/* ---------- Lienzo ---------- */
+.stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  min-width: 0;
+  min-height: 0;
+}
+canvas { display: block; border-radius: 10px; }
+.hud {
+  position: absolute;
+  top: 16px; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, .75);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 13px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width: 820px) {
+  .app { grid-template-columns: 1fr; height: auto; }
+  .stage { order: -1; aspect-ratio: 1; width: 100%; }
+  .panel { border-right: none; border-top: 1px solid var(--border); padding: 16px; }
+}

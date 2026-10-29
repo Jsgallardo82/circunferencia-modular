@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Circunferencia modular</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <aside class="panel">
+      <header>
+        <h1>Circunferencia modular</h1>
+        <p class="formula">i &rarr; (i &middot; m) mod N</p>
+      </header>
+
+      <section>
+        <label class="row" for="N-num">
+          <span>Puntos <b>N</b></span>
+          <input id="N-num" type="number" min="2" max="10000" step="1">
+        </label>
+        <input id="N-range" type="range" min="2" max="1000" step="1" aria-label="Puntos N">
+      </section>
+
+      <section>
+        <label class="row" for="m-num">
+          <span>Multiplicador <b>m</b></span>
+          <input id="m-num" type="number" step="0.01">
+        </label>
+        <input id="m-range" type="range" min="0" max="100" step="0.01" aria-label="Multiplicador m">
+        <div class="steps">
+          <button data-dm="-1">&minus;1</button>
+          <button data-dm="-0.1">&minus;0.1</button>
+          <button data-dm="-0.01">&minus;0.01</button>
+          <button data-dm="0.01">+0.01</button>
+          <button data-dm="0.1">+0.1</button>
+          <button data-dm="1">+1</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Figuras</h2>
+        <div class="presets">
+          <button data-m="2">2 · Cardioide</button>
+          <button data-m="3">3 · Nefroide</button>
+          <button data-m="4">4</button>
+          <button data-m="5">5</button>
+          <button data-m="21" data-n="200">21</button>
+          <button data-m="29" data-n="200">29</button>
+          <button data-m="33" data-n="200">33</button>
+          <button data-m="34" data-n="200">34</button>
+          <button data-m="51" data-n="200">51</button>
+          <button data-m="66" data-n="200">66</button>
+          <button data-m="99" data-n="200">99</button>
+          <button data-m="101" data-n="200">101</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Animación</h2>
+        <div class="row">
+          <button id="play" class="primary">&#9654; Animar m</button>
+          <label class="inline">
+            <span>Velocidad</span>
+            <input data-key="speed" type="range" min="0.005" max="1" step="0.005">
+          </label>
+        </div>
+      </section>
+
+      <section>
+        <h2>Apariencia</h2>
+        <label class="row">
+          <span>Color</span>
+          <select data-key="colorMode">
+            <option value="indice">Arcoíris por índice</option>
+            <option value="longitud">Por longitud de línea</option>
+            <option value="solido">Color único</option>
+          </select>
+        </label>
+        <label class="row" id="row-color">
+          <span>Color de líneas</span>
+          <input data-key="color" type="color">
+        </label>
+        <label class="row" id="row-hue">
+          <span>Tono inicial</span>
+          <input data-key="hue" type="range" min="0" max="360" step="1">
+        </label>
+        <label class="row">
+          <span>Opacidad</span>
+          <input data-key="alpha" type="range" min="0.03" max="1" step="0.01">
+        </label>
+        <label class="row">
+          <span>Grosor</span>
+          <input data-key="lineWidth" type="range" min="0.2" max="4" step="0.1">
+        </label>
+        <label class="row">
+          <span>Fondo</span>
+          <input data-key="bg" type="color">
+        </label>
+        <label class="check"><input data-key="showCircle" type="checkbox"> Circunferencia</label>
+        <label class="check"><input data-key="showPoints" type="checkbox"> Puntos</label>
+        <label class="check"><input data-key="showNumbers" type="checkbox"> Números (si N &le; 100)</label>
+      </section>
+
+      <section>
+        <h2>Guardar imagen</h2>
+        <label class="row">
+          <span>Tamaño</span>
+          <select id="export-size">
+            <option value="1080">1080 × 1080</option>
+            <option value="2048" selected>2048 × 2048</option>
+            <option value="4096">4096 × 4096</option>
+          </select>
+        </label>
+        <label class="check"><input id="export-label" type="checkbox" checked> Incluir valores de N y m</label>
+        <label class="check"><input id="export-transparent" type="checkbox"> Fondo transparente</label>
+        <button id="save" class="primary wide">Guardar PNG</button>
+      </section>
+
+      <footer>
+        <button id="reset" class="link">Restablecer</button>
+        <p class="hint">Teclado: <kbd>Espacio</kbd> animar · <kbd>&larr;</kbd><kbd>&rarr;</kbd> m ±0.01 (<kbd>Shift</kbd> ±1) · <kbd>&uarr;</kbd><kbd>&darr;</kbd> N ±1 (<kbd>Shift</kbd> ±10) · <kbd>S</kbd> guardar</p>
+      </footer>
+    </aside>
+
+    <div class="stage" id="stage">
+      <canvas id="lienzo"></canvas>
+      <div class="hud" id="hud"></div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
